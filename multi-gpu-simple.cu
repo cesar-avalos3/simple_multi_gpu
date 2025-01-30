@@ -24,8 +24,8 @@ int main()
         b[i] = i;
     }
 
-    CUcontext *ctx1;
-    cuCtxCreate(ctx1, 0, 0);
+    CUcontext ctx1;
+    cuCtxCreate(&ctx1, 0, 0);
     cudaMalloc(&d_a1, N * sizeof(int));
     cudaMalloc(&d_b1, N * sizeof(int));
     cudaMalloc(&d_c1, N * sizeof(int));
@@ -33,8 +33,8 @@ int main()
     cudaMemcpy(d_b1, b, N * sizeof(int), cudaMemcpyHostToDevice);
     add<<<(N + 255) / 256, 256>>>(d_a1, d_b1, d_c1, N);
     //cuCtxDestroy(*ctx1);
-    CUcontext *ctx2;
-    cuCtxCreate(ctx2, 0, 0);
+    CUcontext ctx2;
+    cuCtxCreate(&ctx2, 0, 0);
     cudaMalloc(&d_a2, N * sizeof(int));
     cudaMalloc(&d_b2, N * sizeof(int));
     cudaMalloc(&d_c2, N * sizeof(int));
